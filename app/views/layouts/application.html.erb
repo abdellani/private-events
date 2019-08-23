@@ -9,6 +9,12 @@
   </head>
 
   <body>
+    <% if logged_in?%>
+      <%= current_user.name%>
+      <%= link_to "logout", logout_path, method: :delete %>
+      <%else%>
+      <h1>You are not logged in !</h1>
+    <%end%>
     <%= yield %>
   </body>
 </html>
