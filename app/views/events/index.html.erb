@@ -1,8 +1,9 @@
 <ul>
-  <% @user.events.each do |e|%>
+  <% @events.each do |e|%>
   <li>
     Title: <%= e.description%>
     Date: <%= e.date%>
+    <%= link_to 'Show event', event_path(e)%>
   </li>
   <% end %>
 </ul>

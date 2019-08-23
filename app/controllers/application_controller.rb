@@ -15,5 +15,12 @@ class ApplicationController < ActionController::Base
   def current_user= user
     @current_user = user
   end
+  private
+
+  def is_user_logged_in
+    if !logged_in?
+      redirect_to login_path
+    end
+  end
 
 end
