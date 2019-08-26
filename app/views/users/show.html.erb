@@ -1,3 +1,6 @@
+<h2>User name :<%= @user.name%></h2>
+
+<h3><%= @user.name%> created events:</h3>
 <ul>
   <% @user.events.each do |e|%>
   <li>
@@ -5,4 +8,19 @@
     Date: <%= e.date%>
   </li>
   <% end %>
+</ul>
+
+<h3><%= @user.name%> is attending next events:</h3>
+
+<ul>
+  <% @user.attended_events.each do |e|%>
+  <li>
+    Event date: <%= e.date%>, Event description: <%= e.description%>
+    <span><%= link_to 'See event', event_path(e)%></span> </li>
+
+
+
+
+  <% end %>
+
 </ul>
