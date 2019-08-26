@@ -11,9 +11,22 @@
 </ul>
 
 <h3><%= @user.name%> is attending next events:</h3>
-
+<h4>Previous events :</h4>
 <ul>
-  <% @user.attended_events.each do |e|%>
+  <% @user.attended_events.prev_events.each do |e|%>
+  <li>
+    Event date: <%= e.date%>, Event description: <%= e.description%>
+    <span><%= link_to 'See event', event_path(e)%></span> </li>
+
+
+
+
+  <% end %>
+
+</ul>
+<h4>Upcoming events :</h4>
+<ul>
+  <% @user.attended_events.upcoming_events.each do |e|%>
   <li>
     Event date: <%= e.date%>, Event description: <%= e.description%>
     <span><%= link_to 'See event', event_path(e)%></span> </li>

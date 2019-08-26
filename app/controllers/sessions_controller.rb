@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  before_action :prevent_access_login, only: [:new,:create]
   def new
   end
   def create
@@ -15,5 +16,9 @@ class SessionsController < ApplicationController
     session.delete(:user_id)
     current_user= nil
     redirect_to login_path
+  end
+  private 
+  def prevent_access_login
+    redirect_to root_path if logged_in?
   end
 end
