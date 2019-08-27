@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'date'
 
 RSpec.describe Event, type: :model do
-  describe '#author' do
+  describe '#creator' do
     it 'should have creator' do
       user = User.create(name: 'test', email: 'test@test.com', password: '123456')
       event = user.events.build(description: 'test description')
@@ -14,7 +14,15 @@ RSpec.describe Event, type: :model do
       expect(event.errors[:creator]).to include("must exist")
     end
   end
-
+  describe '#attendees' do 
+    it 'should be able to list attendees' do
+      creator= User.create(name:"creator",email:"creator@email.com",password:"123456") 
+      attendee= User.create(name:"attendee",email:"attendee@email.com",password:"123456") 
+      event= Event.create(description:"event description",user_id:creator.id)
+      event.attendees<< attendee
+      expect(Event.first.attendees.first).to eql(attendee)
+    end
+  end
   describe '#prev_events' do
     it 'gets all previous events' do
       User.create(name: 'test', email: 'test@test.com', password: '123456')

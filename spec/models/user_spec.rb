@@ -1,7 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  before :each do
+    User.create(name:'test', email:'test@test.com', password:'123456')
+  end
+
   describe '#name' do
+    before :each do
+      User.create(name:'test', email:'test@test.com', password:'123456')
+    end
     it 'doesnt take user without the name' do
       user = User.new
       user.name = nil 
@@ -14,7 +21,6 @@ RSpec.describe User, type: :model do
     end
 
     it 'validates for name uniquness' do
-      User.create(name:'test', email:'test@test.com', password:'123456')
       user = User.new
       user.name = 'test'
       user.valid?
@@ -64,4 +70,24 @@ RSpec.describe User, type: :model do
       expect(user.errors[:password]).to_not include("can't be blank")
     end
   end
+  
+  describe "#attended_events" do 
+    it 'should be able to list attendees' do
+      creator= User.create(name:"creator",email:"creator@email.com",password:"123456") 
+      attendee= User.create(name:"attendee",email:"attendee@email.com",password:"123456") 
+      event= Event.create(description:"event description",user_id:creator.id)
+      event.attendees<< attendee
+      expect(User.last.attended_events.first).to eql(event)
+    end
+  end
+  describe "#events" do 
+    it 'should be able to list attendees' do
+      creator= User.create(name:"creator",email:"creator@email.com",password:"123456") 
+      attendee= User.create(name:"attendee",email:"attendee@email.com",password:"123456") 
+      event= Event.create(description:"event description",user_id:creator.id)
+      event.attendees<< attendee
+      expect(User.first.events.first).to eql(event)
+    end
+  end
+
 end
