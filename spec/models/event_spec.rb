@@ -7,7 +7,7 @@ RSpec.describe Event, type: :model do
   describe '#creator' do
     it 'should have creator' do
       user = User.create(name: 'test', email: 'test@test.com', password: '123456')
-      event = user.events.build(description: 'test description')
+      event = user.events.build(description: 'test description', date: '2019-08-26')
       event.valid?
       expect(event.errors[:creator]).to_not include('must exist')
 
@@ -20,7 +20,7 @@ RSpec.describe Event, type: :model do
     it 'should be able to list attendees' do
       creator = User.create(name: 'creator', email: 'creator@email.com', password: '123456')
       attendee = User.create(name: 'attendee', email: 'attendee@email.com', password: '123456')
-      event = Event.create(description: 'event description', user_id: creator.id)
+      event = Event.create(description: 'event description', date: '2019-08-26', user_id: creator.id)
       event.attendees << attendee
       expect(Event.first.attendees.first).to eql(attendee)
     end

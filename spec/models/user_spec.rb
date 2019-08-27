@@ -77,7 +77,7 @@ RSpec.describe User, type: :model do
     it 'should be able to list attendees' do
       creator = User.create(name: 'creator', email: 'creator@email.com', password: '123456')
       attendee = User.create(name: 'attendee', email: 'attendee@email.com', password: '123456')
-      event = Event.create(description: 'event description', user_id: creator.id)
+      event = Event.create(description: 'event description', date: '2019-08-26', user_id: creator.id)
       event.attendees << attendee
       expect(User.last.attended_events.first).to eql(event)
     end
@@ -86,9 +86,9 @@ RSpec.describe User, type: :model do
     it 'should be able to list attendees' do
       creator = User.create(name: 'creator', email: 'creator@email.com', password: '123456')
       attendee = User.create(name: 'attendee', email: 'attendee@email.com', password: '123456')
-      event = Event.create(description: 'event description', user_id: creator.id)
+      event = Event.create(description: 'event description', date: '2019-08-26', user_id: creator.id)
       event.attendees << attendee
-      expect(User.first.events.first).to eql(event)
+      expect(User.find_by_email('creator@email.com').events.first).to eql(event)
     end
   end
 end
