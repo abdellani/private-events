@@ -1,7 +1,9 @@
-class EventsController < ApplicationController
-  before_action :is_user_logged_in, only:[:new, :create]
+# frozen_string_literal: true
 
-  def index 
+class EventsController < ApplicationController
+  before_action :user_logged_in?, only: %i[new create]
+
+  def index
     @events = Event.all
   end
 
@@ -10,7 +12,7 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event = Event.new()
+    @event = Event.new
   end
 
   def create
@@ -25,8 +27,7 @@ class EventsController < ApplicationController
 
   private
 
-    def event_params
-      params.require(:event).permit(:description, :date)
-    end
-
+  def event_params
+    params.require(:event).permit(:description, :date)
+  end
 end
