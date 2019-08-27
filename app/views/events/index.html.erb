@@ -1,0 +1,22 @@
+<h1> Previous events</h1>
+<ul>
+  <% @events.prev_events.each do |e|%>
+  <li>
+    Title: <%= e.description%>
+    Date: <%= e.date%>
+    <%= link_to 'Show event', event_path(e)%> 
+    <%= link_to 'Attend this event', attendances_path(:event_id => e.id), method: :post %>
+  </li>
+  <% end %>
+</ul>
+<h1> Upcoming events</h1>
+<ul>
+  <% @events.upcoming_events.each do |e|%>
+  <li>
+    Title: <%= e.description%>
+    Date: <%= e.date%>
+    <%= link_to 'Show event', event_path(e)%> 
+    <%= link_to 'Attend this event', attendances_path(:event_id => e.id), method: :post %>
+  </li>
+  <% end %>
+</ul>

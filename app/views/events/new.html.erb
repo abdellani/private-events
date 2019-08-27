@@ -1,0 +1,9 @@
+<%= form_for @event do |e|%>
+<%= e.label :description%>
+<%= e.text_field :description%>
+<br />
+<%= e.label :date%>
+<%= e.date_field :date%>
+<br />
+<%= e.submit 'Create new event'%>
+<% end %>
